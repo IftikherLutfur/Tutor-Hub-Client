@@ -1,41 +1,81 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const TutorRegistration = () => {
 
-    const { signUp} = useContext(AuthContext)
+    const { signUp } = useContext(AuthContext)
     const navigate = useNavigate()
-    const [show,setShow] = useState(false)
+    const [show, setShow] = useState(false)
     const handleForRegistration = (e) => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
+        const number = form.number.value;
+        const study = form.study.value;
+        const subject = form.subject.value;
+        const teachingSubject = form.teachingSubject.value;
+        const salary = form.salary.value;
+        const location = form.location.value;
+        const onlineOffline = form.onlineOffline.value;
         const password = form.password.value;
         const conpass = form.conpass.value;
+
         const info = { name, email, password, conpass }
-        console.log(info)
+        console.log(info);
+        
 
         signUp(email, password)
             .then((result) => {
                 console.log(result.user);
-                navigate('/')
+                const tutorInfo = {
+                    role:"tutor",
+                    name: name, 
+                    email:email, 
+                    number:number, 
+                    study: study, 
+                    subject:subject, 
+                    teachingSubject:[teachingSubject], 
+                    salary:salary, 
+                    location:location, 
+                    onlineOffline:onlineOffline}
+
+                   
+                     axios.post('http://localhost:5000/tutorInfo', tutorInfo)
+                      .then(response=>{
+                        console.log(response.data);
+                        if(response.data.insertedId){
+                            console.log("Successfully");
+                            navigate('/')
+                            
+                        }
+                        
+                      })
 
             })
             .catch((error) => {
                 console.error("Error signing in:", error.message);
             });
 
-        console.log("Hello World")
     }
 
     return (
-        <div>
-            <section className="bg-zinc-900">
-               
-                <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-                    <form className="w-full max-w-md" onSubmit={handleForRegistration}>
+        <div
+            className="min-h-screen flex items-center justify-center relative bg-cover bg-center"
+            style={{
+                backgroundImage: `linear-gradient(0deg, rgba(17, 17, 17, 0.50) 0%, rgba(17, 17, 17, 0.50) 100%), 
+                      url('https://i.pinimg.com/736x/cf/b5/eb/cfb5eb4b55b11a9d7c3f9206871e16c9.jpg')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+
+            }}
+        >
+            <section className="bg-[#1D1D1D] my-4 ">
+
+                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md bg-[#1D1D1D] pt-6">
+                    <form className="w-full" onSubmit={handleForRegistration}>
 
 
                         <div className="flex items-center justify-center mt-6">
@@ -45,60 +85,143 @@ const TutorRegistration = () => {
                                 sign up
                             </a>
                         </div>
-                        {/* Full Name field */}
-                        <div className="relative flex items-center mt-8">
-                            <span className="absolute">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                            </span>
+                        <div className="grid lg:grid-cols-2 sm:grid-cols-1 items-center gap-1">
 
-                            <input type="text" name="name" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Full Name" required />
-                        </div>
+                            {/* Full Name field */}
+                            <div className="relative flex items-center mt-8">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </span>
+
+                                <input type="text" name="name" className="block w-full py-3 text-black bg-white  rounded-lg px-11 " placeholder="Full Name" required />
+                            </div>
+
+                            {/* Image field */}
+                            <div>
+                                <label className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg text-black">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                    </svg>
+
+                                    <h2 className="mx-3 text-gray-400">Profile Photo</h2>
+
+                                    <input id="dropzone-file" type="file" className="hidden" />
+                                </label>
+                            </div>
+
+                            {/* Email field */}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="email" name="email" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Email address" />
+                            </div>
+                            {/* Phone Number Field */}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="number" name="number" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Number (WhatsApp)" />
+                            </div>
+
+                            {/* University */}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="text" name="study" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your University/Collage" />
+                            </div>
+                            {/* Subject */}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="text" name="subject" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Subject/Department" />
+                            </div>
+
+                            {/* Preferred Teaching Subject */}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="text" name="teachingSubject" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Preferred Teaching Sub" />
+                            </div>
+
+                            {/* Salary */}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="text" name="salary" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Expected Salary(Monthly)" />
+                            </div>
+
+                            {/* Location */}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="text" name="location" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your Location ?" />
+                            </div>
+
+                            {/* Online/Offline*/}
+                            <div className="relative flex items-center mt-6">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+
+                                <input type="text" name="onlineOffline" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Online/Offline" />
+                            </div>
 
 
-                        <label className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                            </svg>
+                            {/* Password */}
+                            <div className="relative flex items-center mt-4">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </span>
 
-                            <h2 className="mx-3 text-gray-400">Profile Photo</h2>
+                                <input type={!show ? "password" : "text"} name="password" className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Password" />
+                                <button onClick={() => setShow(!show)} className="absolute ml-[235px] text-black">eye</ button>
+                            </div>
 
-                            <input id="dropzone-file" type="file" className="hidden" />
-                        </label>
+                            {/* Confirm Password */}
+                            <div className="relative flex items-center mt-4">
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </span>
 
-                        {/* Email field */}
-                        <div className="relative flex items-center mt-6">
-                            <span className="absolute">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                            </span>
+                                <input type="password" name="conpass" className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Confirm Password" />
+                            </div>
 
-                            <input type="email" name="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required placeholder="Email address" />
-                        </div>
 
-                        {/* Password */}
-                        <div className="relative flex items-center mt-4">
-                            <span className="absolute">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                            </span>
-
-                            <input type={!show ? "password":"text"} name="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required placeholder="Password" />
-                            <button onClick={()=>setShow(!show)} className="absolute ml-[410px] text-white">eye</ button>
-                        </div>
-
-                        {/* Confirm Password */}
-                        <div className="relative flex items-center mt-4">
-                            <span className="absolute">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                            </span>
-
-                            <input type="password" name="conpass" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required placeholder="Confirm Password" />
                         </div>
 
                         {/* Button for registration */}
@@ -109,7 +232,7 @@ const TutorRegistration = () => {
                             </button>
                             {/* If you have an account then go to the login page */}
                             <div className="mt-6 text-center ">
-                                <a href="#" className="text-sm text-blue-500 hover:underline dark:text-blue-400">
+                                <a href='/login' className="text-sm text-blue-500 hover:underline dark:text-blue-400">
                                     Already have an account?
                                 </a>
                             </div>
