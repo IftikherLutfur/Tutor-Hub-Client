@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const TutorRegistration = () => {
 
@@ -47,8 +48,8 @@ const TutorRegistration = () => {
                       .then(response=>{
                         console.log(response.data);
                         if(response.data.insertedId){
-                            console.log("Successfully");
                             navigate('/')
+                            toast.success("Tutor account registration successful");
                             
                         }
                         
@@ -66,22 +67,22 @@ const TutorRegistration = () => {
             className="min-h-screen flex items-center justify-center relative bg-cover bg-center"
             style={{
                 backgroundImage: `linear-gradient(0deg, rgba(17, 17, 17, 0.50) 0%, rgba(17, 17, 17, 0.50) 100%), 
-                      url('https://i.pinimg.com/736x/cf/b5/eb/cfb5eb4b55b11a9d7c3f9206871e16c9.jpg')`,
+                      url('https://plus.unsplash.com/premium_photo-1664910790735-cde4270a0b42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
 
             }}
         >
-            <section className="bg-[#1D1D1D] my-4 ">
+            <section className=" m-5 ">
 
-                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md bg-[#1D1D1D] pt-6">
+                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md pt-6">
                     <form className="w-full" onSubmit={handleForRegistration}>
 
 
                         <div className="flex items-center justify-center mt-6">
 
 
-                            <a href="#" className="w-1/3 pb-4 font-medium text-center text-white capitalize border-b-2 border-blue-500 dark:border-blue-400 ">
+                            <a href="#" className="w-1/3 pb-4 font-medium text-center text-white capitalize border-b-2 border-[#1D1D1D]  ">
                                 sign up
                             </a>
                         </div>
@@ -227,12 +228,13 @@ const TutorRegistration = () => {
                         {/* Button for registration */}
 
                         <div className="mt-6">
-                            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1D1D1D]">
                                 Sign Up
                             </button>
+                            <Toaster/>
                             {/* If you have an account then go to the login page */}
                             <div className="mt-6 text-center ">
-                                <a href='/login' className="text-sm text-blue-500 hover:underline dark:text-blue-400">
+                                <a href='/login' className="text-sm text-white bg-[#1D1D1D] p-2 rounded-lg">
                                     Already have an account?
                                 </a>
                             </div>

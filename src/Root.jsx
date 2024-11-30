@@ -4,6 +4,7 @@ import Home from "./Components/Home/Home";
 import TutorRegistration from "./Components/Registration/TutorRegistration";
 import StudentRegistration from "./Components/Registration/StudentRegistration";
 import SignIn from "./Components/SignIn/SignIn";
+import TutorDetails from "./Components/TutorDetails/TutorDetails";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         {
           path:'/login',
           element:<SignIn/>
+          },
+          {
+            path:'/tutorFinds',
+            element:<TutorDetails/>
           }
       ]
     },

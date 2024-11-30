@@ -24,7 +24,7 @@ const StudentRegistration = () => {
         signUp(email, password)
             .then((res) => {
                 console.log(res.user)
-                const tutorInfo = {
+                const studentInfo = {
                     role: "student",
                     name: name,
                     email: email,
@@ -34,7 +34,7 @@ const StudentRegistration = () => {
                     location: location,
                 }
 
-                axios.post('http://localhost:5000/tutorInfo', tutorInfo)
+                axios.post('http://localhost:5000/studentInfo', studentInfo)
                     .then(res => {
                         console.log(res.data);
                         if (res.data.insertedId) {
@@ -63,16 +63,16 @@ const StudentRegistration = () => {
 
             }}
         >
-            <section className="bg-[#1D1D1D] my-4 ">
+            <section className="mt-5 ">
 
-                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md bg-[#1D1D1D] pt-6">
+                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md  pt-6">
                     <form className="w-full" onSubmit={handleForRegistration}>
 
 
                         <div className="flex items-center justify-center mt-6">
 
 
-                            <a href="#" className="w-1/3 pb-4 font-medium text-center text-white capitalize border-b-2 border-blue-500 dark:border-blue-400 ">
+                            <a href="#" className="w-1/3 pb-4  text-center text-white text-2xl font-bold capitalize border-b-2 border-[#1D1D1D]  ">
                                 sign up
                             </a>
                         </div>
@@ -91,7 +91,7 @@ const StudentRegistration = () => {
 
                             {/* Image field */}
                             <div>
-                                <label className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg text-black">
+                                <label className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white rounded-lg text-black">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                                     </svg>
@@ -195,13 +195,13 @@ const StudentRegistration = () => {
                         {/* Button for registration */}
 
                         <div className="mt-6">
-                            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1D1D1D]">
                                 Sign Up
                             </button>
                             <Toaster />
                             {/* If you have an account then go to the login page */}
                             <div className="mt-6 text-center ">
-                                <a href='/login' className="text-sm text-blue-500 hover:underline dark:text-blue-400">
+                                <a href='/login' className="text-sm text-white hover:underline bg-[#1D1D1D] p-2 rounded-lg">
                                     Already have an account?
                                 </a>
                             </div>

@@ -12,8 +12,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-opacity-10 bg-black text-white">
-      <div className="flex justify-between items-center px-5 py-5">
+    <div className=" fixed z-10 w-full h-16 bg-opacity-70 bg-black text-white">
+      <div className="flex justify-between items-center px-5 py-3">
         {/* Logo */}
         <div>
           <h1 className="text-2xl font-bold">
@@ -22,7 +22,7 @@ const Navbar = () => {
         </div>
 
         {/* Menu Icon for Mobile */}
-        <div className="md:hidden text-black">
+        <div className="md:hidden ">
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle Menu"
@@ -33,10 +33,11 @@ const Navbar = () => {
 
         {/* Links for Desktop */}
         <div className="hidden md:block">
-          <ul className="flex gap-5 text-black">
+          <ul className="flex gap-5 text-white">
             <li>
               <NavLink to={"/"}>Home</NavLink>
             </li>
+            <li>Finds Tutor</li>
             <li>About</li>
             <li>Contact Us</li>
             {user ? (
@@ -54,13 +55,14 @@ const Navbar = () => {
 
       {/* Dropdown Menu for Mobile */}
       {isMenuOpen && (
-        <div className="md:hidden bg-opacity-90 text-black">
-          <ul className="flex flex-col items-center gap-5 py-5">
+        <div className="md:hidden bg-opacity-70 bg-black text-center text-white">
+          <ul className="flex flex-col gap-5 py-5">
             <li>
               <NavLink to={"/"} onClick={() => setIsMenuOpen(false)}>
                 Home
               </NavLink>
             </li>
+            <li onClick={() => setIsMenuOpen(false)}><NavLink>Finds Tutor</NavLink></li>
             <li onClick={() => setIsMenuOpen(false)}>About</li>
             <li onClick={() => setIsMenuOpen(false)}>Contact Us</li>
             {user ? (
