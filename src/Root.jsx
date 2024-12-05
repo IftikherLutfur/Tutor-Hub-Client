@@ -5,6 +5,7 @@ import TutorRegistration from "./Components/Registration/TutorRegistration";
 import StudentRegistration from "./Components/Registration/StudentRegistration";
 import SignIn from "./Components/SignIn/SignIn";
 import TutorDetails from "./Components/TutorDetails/TutorDetails";
+import PrivateRoute from "./Components/AuthProvider/PrivateRoute/PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
           },
           {
             path:'/tutorFinds',
-            element:<TutorDetails/>
+            element:<PrivateRoute><TutorDetails/></PrivateRoute>
           }
       ]
     },

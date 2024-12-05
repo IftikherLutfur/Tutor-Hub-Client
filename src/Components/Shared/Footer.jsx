@@ -7,7 +7,7 @@ const Footer = () => {
 
         <div className="flex-1">
             <h1 className="text-5xl font-semibold">Tutor <span className="text-pink-500">Hub</span></h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore ullam quidem enim. Modi debitis eveniet et alias sunt accusamus, quis aut distinctio fugit accusantium libero perspiciatis cum tempore quod vel!</p>
+            <p>Tutor Hub is an online platform that connects students with qualified tutors for personalized learning sessions across a wide range of subjects. It offers live one-on-one tutoring, group sessions, and study materials.</p>
         </div>
         
         <div className="flex-1">
