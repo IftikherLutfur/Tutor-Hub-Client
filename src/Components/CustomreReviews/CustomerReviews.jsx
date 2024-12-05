@@ -2,7 +2,7 @@
 const CustomerReviews = () => {
     return (
         <div className="mx-5 my-5">
-            <h1 className="text-center text-2xl mb-5 font-semibold ">What do customers say about our services?</h1>
+            <h1 className="text-center text-2xl mb-5 font-semibold ">What do Tutors say about our services?</h1>
 
            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5">
             {/* 1st review */}

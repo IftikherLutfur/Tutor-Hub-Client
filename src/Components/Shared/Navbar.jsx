@@ -37,8 +37,8 @@ const Navbar = () => {
             <li>
               <NavLink to={"/"}>Home</NavLink>
             </li>
-            <li>Finds Tutor</li>
-            <li>About</li>
+            <li><NavLink to={'/tutorFinds'}>Finds Tutor</NavLink></li>
+            <li><NavLink to={'/aboutUs'}>About Us</NavLink></li>
             <li>Contact Us</li>
             {user ? (
               <li>
@@ -62,8 +62,8 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            <li onClick={() => setIsMenuOpen(false)}><NavLink>Finds Tutor</NavLink></li>
-            <li onClick={() => setIsMenuOpen(false)}>About</li>
+            <li onClick={() => setIsMenuOpen(false)}><NavLink to={'/tutorFinds'}>Finds Tutor</NavLink></li>
+            <li onClick={() => setIsMenuOpen(false)}><NavLink to={'/aboutUs'}>About Us</NavLink></li>
             <li onClick={() => setIsMenuOpen(false)}>Contact Us</li>
             {user ? (
               <li>

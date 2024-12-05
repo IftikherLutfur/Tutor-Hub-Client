@@ -6,6 +6,7 @@ import StudentRegistration from "./Components/Registration/StudentRegistration";
 import SignIn from "./Components/SignIn/SignIn";
 import TutorDetails from "./Components/TutorDetails/TutorDetails";
 import PrivateRoute from "./Components/AuthProvider/PrivateRoute/PrivateRoute";
+import AboutUs from "./Components/AboutUS/AboutUs";
 
 
 const router = createBrowserRouter([
@@ -30,9 +31,13 @@ const router = createBrowserRouter([
           element:<SignIn/>
           },
           {
+            path:'/aboutUs',
+            element:<AboutUs/>
+          },
+          {
             path:'/tutorFinds',
             element:<PrivateRoute><TutorDetails/></PrivateRoute>
-          }
+          },
       ]
     },
   ]);
