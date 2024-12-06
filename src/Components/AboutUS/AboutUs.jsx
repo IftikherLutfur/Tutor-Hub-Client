@@ -20,7 +20,9 @@ const AboutUs = () => {
 
     return (
         <div className="pt-20">
-            <h1 className="text-4xl text-center">Our Team</h1>
+            <h1 className="text-4xl text-center uppercase font-semibold">Our Team</h1>
+            <p className="text-gray-700 text-center">
+            This is our team, tirelessly working to ensure your service. We are dedicated and passionate about our work, which is why you receive such excellent services. </p>
 
             <div className="flex justify-center gap-20 my-5">
                 {ourInfo.slice(0, 1).map(our => <div key={our._id} className="border-2 text-center px-5 py-4 bg-[#EEECFB] rounded-lg">
