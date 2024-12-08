@@ -105,7 +105,7 @@ const handleForLogin = (e) =>{
 
     <p className="mt-8   text-center  py-1 text-white"> 
       Don't have an account? 
-      <a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">
+      <a href="#" className="font-medium text-white dark:text-gray-200 hover:underline">
         <NavLink to={'/'}>Create One</NavLink>
       </a>
     </p>

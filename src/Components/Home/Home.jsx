@@ -3,8 +3,21 @@ import CustomerReviews from "../CustomreReviews/CustomerReviews";
 import FrequentlyAskQuestion from "../FrequentlyQyestion/FrequentlyAskQuestion";
 
 import Banner from "./Banner";
+import TutorReview from "../TutorReview/TutorReview";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const Home = () => {
+  const [tutor, setTutor] = useState([])
+  useEffect(()=>{
+     axios.get('http://localhost:5000/getTutor')
+     .then(res=>{
+      setTutor(res.data)
+      console.log(res.data);
+      
+     })
+  },[])
     return (
         <div>
           <Banner/>
@@ -15,6 +28,7 @@ const Home = () => {
            </div>
            {/* end the button */}
           <FrequentlyAskQuestion/>
+          {tutor ? <TutorReview/> : ""} 
         </div>
     );
 };
