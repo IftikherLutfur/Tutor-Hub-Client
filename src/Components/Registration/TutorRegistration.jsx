@@ -4,12 +4,34 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
+
 const TutorRegistration = () => {
+
+
+    const [profilePhoto, setProfilePhoto] = useState(null);
+
+const uploadImageToImgbb = async (imageFile) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    try {
+        const response = await axios.post(image_hosting, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+        return response.data.data.display_url; // URL of the uploaded image
+    } catch (error) {
+        console.error("Image upload failed:", error);
+        throw new Error("Failed to upload image. Please try again.");
+    }
+};
+
 
     const { signUp } = useContext(AuthContext)
     const navigate = useNavigate()
     const [show, setShow] = useState(false)
-    const handleForRegistration = (e) => {
+    const handleForRegistration = async (e) => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -26,34 +48,37 @@ const TutorRegistration = () => {
 
         const info = { name, email, password, conpass }
         console.log(info);
-        
+
+        const profilePhotoUrl = await uploadImageToImgbb(profilePhoto);
 
         signUp(email, password)
             .then((result) => {
                 console.log(result.user);
                 const tutorInfo = {
-                    role:"tutor",
-                    name: name, 
-                    email:email, 
-                    number:number, 
-                    study: study, 
-                    subject:subject, 
-                    teachingSubject:[teachingSubject], 
-                    salary:salary, 
-                    location:location, 
-                    onlineOffline:onlineOffline}
+                    role: "tutor",
+                    name: name,
+                    image: profilePhotoUrl,
+                    email: email,
+                    number: number,
+                    study: study,
+                    subject: subject,
+                    teachingSubject: [teachingSubject],
+                    salary: salary,
+                    location: location,
+                    onlineOffline: onlineOffline
+                }
 
-                   
-                     axios.post('http://localhost:5000/tutorInfo', tutorInfo)
-                      .then(response=>{
+
+                axios.post('http://localhost:5000/tutorInfo', tutorInfo)
+                    .then(response => {
                         console.log(response.data);
-                        if(response.data.insertedId){
-                            navigate('/')
+                        if (response.data.insertedId) {
                             toast.success("Tutor account registration successful");
-                            
+                            navigate('/')
+
                         }
-                        
-                      })
+
+                    })
 
             })
             .catch((error) => {
@@ -108,7 +133,9 @@ const TutorRegistration = () => {
 
                                     <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-                                    <input id="dropzone-file" type="file" className="hidden" />
+                                    <input id="dropzone-file" type="file" name="image"
+                                        onChange={(e) => setProfilePhoto(e.target.files[0])}
+                                        className="hidden" />
                                 </label>
                             </div>
 
@@ -231,7 +258,7 @@ const TutorRegistration = () => {
                             <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1D1D1D]">
                                 Sign Up
                             </button>
-                            <Toaster/>
+                            <Toaster />
                             {/* If you have an account then go to the login page */}
                             <div className="mt-6 text-center ">
                                 <a href='/login' className="text-sm text-white bg-[#1D1D1D] p-2 rounded-lg">

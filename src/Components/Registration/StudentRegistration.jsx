@@ -1,16 +1,35 @@
 import { useContext, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import {toast, Toaster } from "react-hot-toast";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const StudentRegistration = () => {
 
     const { signUp } = useContext(AuthContext)
     const [show, setShow] = useState(false)
+    const [profilePhoto, setProfilePhoto] = useState(null);
     const navigate = useNavigate()
 
-    const handleForRegistration = (e) => {
+    const uploadImageToImgbb = async (imageFile) => {
+        const formData = new FormData();
+        formData.append("image", imageFile);
+    
+        try {
+            const response = await axios.post(image_hosting, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            return response.data.data.display_url; // URL of the uploaded image
+        } catch (error) {
+            console.error("Image upload failed:", error);
+            throw new Error("Failed to upload image. Please try again.");
+        }
+    };
+
+    const handleForRegistration =async (e) => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -21,12 +40,15 @@ const StudentRegistration = () => {
         const location = form.location.value;
         const password = form.password.value;
 
+        const profilePhotoUrl = await uploadImageToImgbb(profilePhoto);
+
         signUp(email, password)
             .then((res) => {
                 console.log(res.user)
                 const studentInfo = {
                     role: "student",
                     name: name,
+                    image: profilePhotoUrl,
                     email: email,
                     number: number,
                     study: study,
@@ -38,9 +60,8 @@ const StudentRegistration = () => {
                     .then(res => {
                         console.log(res.data);
                         if (res.data.insertedId) {
-                            console.log("successfully");
-                            navigate('/')
                             toast.success("Student account successfully registered")
+                            navigate('/')
 
                         }
 
@@ -98,7 +119,10 @@ const StudentRegistration = () => {
 
                                     <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-                                    <input id="dropzone-file" type="file" className="hidden" />
+                                    
+                                    <input id="dropzone-file" type="file" name="image"
+                                        onChange={(e) => setProfilePhoto(e.target.files[0])}
+                                        className="hidden" />
                                 </label>
                             </div>
 

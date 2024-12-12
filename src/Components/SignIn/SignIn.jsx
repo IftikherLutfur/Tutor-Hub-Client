@@ -1,10 +1,12 @@
 import { useContext } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
+import auth from "../../../firebase";
 
 const SignIn = () => {
-  const {logIn, googleLogin} = useContext(AuthContext)
+  const { googleLogin} = useContext(AuthContext)
   const navigate = useNavigate()
 
   const handleForGoogleLogin = (e) =>{
@@ -14,30 +16,69 @@ console.log("Hello");
 
   }
 
-const handleForLogin = (e) =>{
-  e.preventDefault()
-  const form = e.target;
-  const email = form.email.value;
-  const password = form.password.value;
+  const handleForLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
   
-  const info = {email, password}
-  console.log(info)
+    console.log("Attempting to log in with:", { email, password });
+  
+    signInWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        console.log("Signed in successfully:", res.user);
+        if (res.user) {
+          toast.success("Successfully signed in");
+        }
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error Code:", error.code);
+        console.error("Error Message:", error.message);
+  
+        switch (error.code) {
+          case "auth/user-not-found":
+            toast.error("User not found. Please check your email.");
+            break;
+          case "auth/wrong-password":
+            toast.error("Incorrect password. Please try again.");
+            break;
+          case "auth/invalid-credential":
+            toast.error("Invalid credentials provided.");
+            break;
+          default:
+            toast.error("Sign-in failed. Please try again.");
+        }
+      });
+  };
+  
+
+// const handleForLogin = (e) =>{
+//   e.preventDefault()
+//   const form = e.target;
+//   const email = form.email.value;
+//   const password = form.password.value;
+  
+//   const info = {email, password}
+//   console.log(info)
    
-  logIn(email, password)
-  .then(res=>{
-    if(res.user){
-      toast.success("Successfully Sign In")
-      navigate('/')
-    };
+//   logIn(email, password)
+//   .then((res)=>{
+//     console.log(res.user);
     
-  })
-  .catch((error)=>{
-    console.error("Error", error)
-  });
+//     if(res.user){
+//       toast.success("Successfully Sign In")
+//       navigate('/')
+//     };
+    
+//   })
+//   .catch((error)=>{
+//     console.error("Error", error)
+//   });
  
 
 
-}
+// }
 
     return (
 
