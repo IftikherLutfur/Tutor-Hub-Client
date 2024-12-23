@@ -15,7 +15,9 @@ const Navbar = () => {
     if(user?.email){
       axios.get("http://localhost:5000/getStudent")
       .then(res=>{
-        const matchedStudent = res.data.find((student)=>student.email===user?.email);
+        console.log(res.data);
+        
+        const matchedStudent = res.data.find((student)=>student?.email===user?.email);
         setCurrentStudent(matchedStudent)
 
       })
@@ -29,7 +31,7 @@ const Navbar = () => {
         .get("http://localhost:5000/getTutor")
         .then((res) => {
           const matchedTutor = res.data.find(
-            (tutor) => tutor.email === user.email
+            (tutor) => tutor?.email === user?.email
           );
           setCurrentTutor(matchedTutor);
         })
@@ -94,7 +96,7 @@ const Navbar = () => {
                   {isOpen && (
                     <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20">
                       <div className="p-2">
-                        <p className="text-black">{currentTutor?.name || currentStudent?.name}</p>
+                        <p className="text-black">{user.displayName}</p>
                         <button
                           onClick={handleLogout}
                           className="mt-2 block w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-gray-100"

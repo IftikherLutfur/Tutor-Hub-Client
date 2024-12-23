@@ -28,7 +28,7 @@ const uploadImageToImgbb = async (imageFile) => {
 };
 
 
-    const { signUp } = useContext(AuthContext)
+    const { signUp, update } = useContext(AuthContext)
     const navigate = useNavigate()
     const [show, setShow] = useState(false)
     const handleForRegistration = async (e) => {
@@ -53,6 +53,7 @@ const uploadImageToImgbb = async (imageFile) => {
 
         signUp(email, password)
             .then((result) => {
+                update(name)
                 console.log(result.user);
                 const tutorInfo = {
                     role: "tutor",

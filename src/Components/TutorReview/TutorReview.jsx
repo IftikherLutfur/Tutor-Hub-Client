@@ -5,17 +5,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const TutorReview = () => {
   const { user } = useContext(AuthContext)
-  const [current, setCurrent] = useState(null)
-  useEffect(() => {
-    if (user?.email) {
-      axios.get("http://localhost:5000/getTutor")
-        .then(res => {
-          const matchedStudent = res.data.find((tutor) => tutor?.email === user?.email);
-          setCurrent(matchedStudent)
-
-        })
-    }
-  })
+ 
   
   const handleForReviews = (e) => {
 
@@ -28,9 +18,6 @@ const TutorReview = () => {
 
     const review = {
       email: user.email,
-      role: user.role,
-      image: current?.image,
-      name: current?.name,
       message: message
     }
 
@@ -56,7 +43,7 @@ const TutorReview = () => {
       <div className="lg:flex gap-11 mx-5 my-5 items-center ">
         <div>
           <img src="https://i.ibb.co.com/WnVWyKW/Background-9.png" className="w-80 h-52 px-10 mx-16" alt="" />
-          <h1 className="text-3xl font-bold uppercase">Hey, tutor how's our service</h1>
+          <h1 className="text-3xl font-bold uppercase">Hey, how was our service</h1>
         </div>
         <form onSubmit={handleForReviews} className="mt-6">
           <div>

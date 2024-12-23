@@ -1,15 +1,17 @@
 import { useContext, useState } from "react";
+// import { useForm } from "react-hook-form";
 import {toast, Toaster } from "react-hot-toast";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const StudentRegistration = () => {
 
-    const { signUp } = useContext(AuthContext)
+    const { signUp, update } = useContext(AuthContext)
     const [show, setShow] = useState(false)
     const [profilePhoto, setProfilePhoto] = useState(null);
     const navigate = useNavigate()
@@ -29,31 +31,43 @@ const StudentRegistration = () => {
         }
     };
 
-    const handleForRegistration =async (e) => {
-        e.preventDefault()
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const number = form.number.value;
-        const study = form.study.value;
-        const subject = form.subject.value;
-        const location = form.location.value;
-        const password = form.password.value;
+    const {register, handleSubmit} =useForm({
+        shouldUseNativeValidation: true,
+    })
+    const onSubmit = async (data) =>{
+        const formData = new FormData();
+  formData.append("image", data.image[0]);
+
+  try {
+    const response = await fetch(image_hosting, {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+    const imageUrl = result.data.display_url;
+
+    console.log(imageUrl); // Use the uploaded image URL as needed
+  } catch (error) {
+    console.error("Image upload failed:", error);
+  }
+   console.log(data);
+   
 
         const profilePhotoUrl = await uploadImageToImgbb(profilePhoto);
 
-        signUp(email, password)
+        signUp(data.email, data.password )
             .then((res) => {
+                update(data.name, data.image)
                 console.log(res.user)
                 const studentInfo = {
                     role: "student",
-                    name: name,
+                    name: data.name,
                     image: profilePhotoUrl,
-                    email: email,
-                    number: number,
-                    study: study,
-                    subject: subject,
-                    location: location,
+                    email: data.email,
+                    number: data.number,
+                    study: data.study,
+                    subject: data.subject,
+                    location: data.location,
                 }
 
                 axios.post('http://localhost:5000/studentInfo', studentInfo)
@@ -70,8 +84,9 @@ const StudentRegistration = () => {
             })
 
 
+        }
+    
 
-    }
 
     return (
         <div
@@ -87,7 +102,7 @@ const StudentRegistration = () => {
             <section className="mt-5 ">
 
                 <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md  pt-6">
-                    <form className="w-full" onSubmit={handleForRegistration}>
+                    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
 
 
                         <div className="flex items-center justify-center mt-6">
@@ -107,7 +122,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="name" className="block w-full py-3 text-black bg-white  rounded-lg px-11 " placeholder="Full Name" required />
+                                <input type="text" name="name" {...register("name",{
+                                    required:"Please enter the name"
+                                })} className="block w-full py-3 text-black bg-white  rounded-lg px-11 " placeholder="Full Name" required />
                             </div>
 
                             {/* Image field */}
@@ -120,7 +137,9 @@ const StudentRegistration = () => {
                                     <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
                                     
-                                    <input id="dropzone-file" type="file" name="image"
+                                    <input id="dropzone-file" type="file" name="image" {...register("image",{
+                                        required:"Upload a your image"
+                                    })}
                                         onChange={(e) => setProfilePhoto(e.target.files[0])}
                                         className="hidden" />
                                 </label>
@@ -134,7 +153,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="email" name="email" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Email address" />
+                                <input type="email" name="email" {...register("email",{
+                                    required:"Type your email"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Email address" />
                             </div>
                             {/* Phone Number Field */}
                             <div className="relative flex items-center mt-6">
@@ -144,7 +165,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="number" name="number" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Number (WhatsApp)" />
+                                <input type="number" name="number" {...register("number",{
+                                    required:"Type your number"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Number (WhatsApp)" />
                             </div>
 
                             {/* University */}
@@ -155,7 +178,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="study" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your University/Collage" />
+                                <input type="text" name="study" {...register("study",{
+                                    required:"Type your university name"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your University/Collage" />
                             </div>
                             {/* Subject */}
                             <div className="relative flex items-center mt-6">
@@ -165,7 +190,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="subject" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Subject/Department" />
+                                <input type="text" name="subject" {...register("subject",{
+                                    required:"Type your department"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Subject/Department" />
                             </div>
 
 
@@ -180,7 +207,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="location" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your Location ?" />
+                                <input type="text" name="location" {...register("location",{
+                                    required:"Type your location"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your Location ?" />
                             </div>
 
 
@@ -194,7 +223,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type={!show ? "password" : "text"} name="password" className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Password" />
+                                <input type={!show ? "password" : "text"} name="password" {...register("password",{
+                                    required:"Type your password"
+                                })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Password" />
                                 <button onClick={() => setShow(!show)} className="absolute ml-[235px] text-black">eye</ button>
                             </div>
 
@@ -207,7 +238,9 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="password" name="conpass" className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Confirm Password" />
+                                <input type="password" name="conpassword" {...register("compassword",{
+                                    required:"confirm your password"
+                                })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Confirm Password" />
                             </div>
 
                             <div className="relative flex items-center mt-4 text-white">
