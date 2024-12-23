@@ -9,6 +9,9 @@ import PrivateRoute from "./Components/AuthProvider/PrivateRoute/PrivateRoute";
 import AboutUs from "./Components/AboutUS/AboutUs";
 import TutorReview from "./Components/TutorReview/TutorReview";
 import ContactUs from "./Components/ContactUs/ContactUs";
+import Dashboard from "./Dashboard/Dashboard";
+import TutorCollection from "./Dashboard/TutorCollection";
+import StudentCollection from "./Dashboard/StudentCollection";
 
 
 const router = createBrowserRouter([
@@ -48,7 +51,23 @@ const router = createBrowserRouter([
             path:'/contactUs',
             element:<ContactUs/>
           }
+      ],
+      
+    },
+    {
+      path:'Dashboard',
+      element:<Dashboard/>,
+      children:[
+        {
+          path:"tutorCollection",
+          element:<TutorCollection/>
+        },
+        {
+          path:'studentCollection',
+          element:<StudentCollection/>
+        }
       ]
     },
+
   ]);
   export default router;
