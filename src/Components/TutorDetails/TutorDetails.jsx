@@ -37,7 +37,7 @@ const TutorDetails = () => {
             <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {tutor.map(tutors=>
                <div key={tutors._id} className="border-2 m-2 p-2">
-                <img className="w-[300px] h-[290px] px-4" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                <img className="w-[300px] h-[290px] px-4" src={tutors.image} alt="" />
                 <h1 className="text-xl">{tutors.name}</h1>
                 <p className="flex items-center gap-2 text-sm"><FaUniversity/>{tutors.study} 
                 </p>

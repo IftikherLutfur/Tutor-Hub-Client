@@ -14,12 +14,12 @@ const Footer = () => {
             <p className="text-xl">Sign Up For Our Newsletter!</p>
             <p className="mb-3">Get notified about updates and be the first to get early access to new Podcast episodes.</p>
             <input type="text" className="py-2 hover:none px-6 text-black lg:w-80  rounded-l-lg" placeholder="Your email address" />
-            <button className="bg-purple-600 px-4 rounded-r-lg lg:w-40 py-2 text-white">Subscribe</button>
+            <button className="bg-zinc-800 px-4 rounded-r-lg lg:w-40 py-2 text-white">Subscribe</button>
         </div>
 
         </div> 
 
-        <div className="bg-[#7E53D4] py-3">
+        <div className="bg-[#5e37ad] py-3">
         <p className="text-center text-white">© 2024 | Tutor Hub</p>
         <p className="text-center">Develop by Iftikher Lutfur Abdullah</p>
         </div>

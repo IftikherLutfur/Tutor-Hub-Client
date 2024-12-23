@@ -3,6 +3,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -12,61 +13,51 @@ const TutorRegistration = () => {
 
     const [profilePhoto, setProfilePhoto] = useState(null);
 
-const uploadImageToImgbb = async (imageFile) => {
-    const formData = new FormData();
-    formData.append("image", imageFile);
+    const uploadImageToImgbb = async (imageFile) => {
+        const formData = new FormData();
+        formData.append("image", imageFile);
 
-    try {
-        const response = await axios.post(image_hosting, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
-        return response.data.data.display_url; // URL of the uploaded image
-    } catch (error) {
-        console.error("Image upload failed:", error);
-        throw new Error("Failed to upload image. Please try again.");
-    }
-};
+        try {
+            const response = await axios.post(image_hosting, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            return response.data.data.display_url; // URL of the uploaded image
+        } catch (error) {
+            console.error("Image upload failed:", error);
+            throw new Error("Failed to upload image. Please try again.");
+        }
+    };
 
+    
+        const { signUp, update } = useContext(AuthContext)
+        const navigate = useNavigate()
+        const [show, setShow] = useState(false)
 
-    const { signUp, update } = useContext(AuthContext)
-    const navigate = useNavigate()
-    const [show, setShow] = useState(false)
-    const handleForRegistration = async (e) => {
-        e.preventDefault()
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const number = form.number.value;
-        const study = form.study.value;
-        const subject = form.subject.value;
-        const teachingSubject = form.teachingSubject.value;
-        const salary = form.salary.value;
-        const location = form.location.value;
-        const onlineOffline = form.onlineOffline.value;
-        const password = form.password.value;
-        const conpass = form.conpass.value;
+    const { register, handleSubmit } = useForm({
+        shouldUseNativeValidation: true
+    })
 
-        const info = { name, email, password, conpass }
-        console.log(info);
-
+    const onSubmit = async (data) =>{
+        console.log(data);
+        
         const profilePhotoUrl = await uploadImageToImgbb(profilePhoto);
 
-        signUp(email, password)
+        signUp(data.email, data.password)
             .then((result) => {
-                update(name)
+                update(data.name, data.image)
                 console.log(result.user);
                 const tutorInfo = {
                     role: "tutor",
-                    name: name,
+                    name: data.name,
                     image: profilePhotoUrl,
-                    email: email,
-                    number: number,
-                    study: study,
-                    subject: subject,
-                    teachingSubject: [teachingSubject],
-                    salary: salary,
-                    location: location,
-                    onlineOffline: onlineOffline
+                    email: data.email,
+                    number: data.number,
+                    study: data.study,
+                    subject: data.subject,
+                    teachingSubject: [data.teachingSubject],
+                    salary: data.salary,
+                    location: data.location,
+                    onlineOffline: data.onlineOffline
                 }
 
 
@@ -86,7 +77,7 @@ const uploadImageToImgbb = async (imageFile) => {
                 console.error("Error signing in:", error.message);
             });
 
-    }
+        }
 
     return (
         <div
@@ -102,7 +93,7 @@ const uploadImageToImgbb = async (imageFile) => {
             <section className=" m-5 ">
 
                 <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md pt-6">
-                    <form className="w-full" onSubmit={handleForRegistration}>
+                    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
 
 
                         <div className="flex items-center justify-center mt-6">
@@ -122,7 +113,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="name" className="block w-full py-3 text-black bg-white  rounded-lg px-11 " placeholder="Full Name" required />
+                                <input type="text" name="name" {...register ("name", {
+                                    required:"Type your name"
+                                })} className="block w-full py-3 text-black bg-white  rounded-lg px-11 " placeholder="Full Name" required />
                             </div>
 
                             {/* Image field */}
@@ -134,7 +127,9 @@ const uploadImageToImgbb = async (imageFile) => {
 
                                     <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-                                    <input id="dropzone-file" type="file" name="image"
+                                    <input id="dropzone-file" type="file" name="image" {...register ("image", {
+                                    required:"Upload your image"
+                                })}
                                         onChange={(e) => setProfilePhoto(e.target.files[0])}
                                         className="hidden" />
                                 </label>
@@ -148,7 +143,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="email" name="email" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Email address" />
+                                <input type="email" name="email" {...register ("email", {
+                                    required:"Type your email"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Email address" />
                             </div>
                             {/* Phone Number Field */}
                             <div className="relative flex items-center mt-6">
@@ -158,7 +155,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="number" name="number" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Number (WhatsApp)" />
+                                <input type="number" name="number" {...register ("number", {
+                                    required:"Type your number"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Number (WhatsApp)" />
                             </div>
 
                             {/* University */}
@@ -169,7 +168,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="study" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your University/Collage" />
+                                <input type="text" name="study"  {...register("study",{
+                                    required:"Type your university name"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your University/Collage" />
                             </div>
                             {/* Subject */}
                             <div className="relative flex items-center mt-6">
@@ -179,7 +180,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="subject" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Subject/Department" />
+                                <input type="text" name="subject" {...register("subject",{
+                                    required:"Type your department"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Subject/Department" />
                             </div>
 
                             {/* Preferred Teaching Subject */}
@@ -190,7 +193,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="teachingSubject" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Preferred Teaching Sub" />
+                                <input type="text" name="teachingSubject"  {...register("teachingSubject",{
+                                    required:"Type your teaching subject"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Preferred Teaching Sub" />
                             </div>
 
                             {/* Salary */}
@@ -201,7 +206,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="salary" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Expected Salary(Monthly)" />
+                                <input type="text" name="salary"  {...register("salary",{
+                                    required:"Type your expectation salary"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Expected Salary(Monthly)" />
                             </div>
 
                             {/* Location */}
@@ -212,7 +219,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="location" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your Location ?" />
+                                <input type="text" name="location"  {...register("location",{
+                                    required:"Type your location"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your Location ?" />
                             </div>
 
                             {/* Online/Offline*/}
@@ -223,7 +232,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="onlineOffline" className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Online/Offline" />
+                                <input type="text" name="onlineOffline"  {...register("onlineOffline",{
+                                    required:"Type online or offline?"
+                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Online/Offline" />
                             </div>
 
 
@@ -235,7 +246,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type={!show ? "password" : "text"} name="password" className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Password" />
+                                <input type={!show ? "password" : "text"} name="password"  {...register("password",{
+                                    required:"Type your password"
+                                })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Password" />
                                 <button onClick={() => setShow(!show)} className="absolute ml-[235px] text-black">eye</ button>
                             </div>
 
@@ -247,7 +260,9 @@ const uploadImageToImgbb = async (imageFile) => {
                                     </svg>
                                 </span>
 
-                                <input type="password" name="conpass" className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Confirm Password" />
+                                <input type="password" name="conpassword"  {...register("compassword",{
+                                    required:"Type your compassword"
+                                })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Confirm Password" />
                             </div>
 
 
