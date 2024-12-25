@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { TiDelete } from "react-icons/ti";
+
 
 const StudentCollection = () => {
     const [students, setStudent] = useState([])
@@ -21,7 +23,7 @@ const StudentCollection = () => {
     
             if (res.data.modifiedCount) {
                 console.log("Successfully updated the role.");
-                // Update the state with the new role
+                // Update the state with the new    role
                 setStudent((prevStudents) =>
                     prevStudents.map((s) =>
                         s._id === student._id ? { ...s, role: "admin" } : s
@@ -32,6 +34,24 @@ const StudentCollection = () => {
             }
         } catch (error) {
             console.error("Error updating student:", error);
+        }
+    };
+    
+    const handleDelete = async (student) => {
+        console.log("Attempting to delete student with ID:", student._id);
+        try {
+            const res = await axios.delete(`http://localhost:5000/studentDelete/${student._id}`);
+            if (res.data.deletedCount > 0) {
+                console.log("Deleted successfully");
+                // Update the UI to reflect the deletion
+                setStudent((prevStudents) =>
+                    prevStudents.filter((s) => s._id !== student._id)
+                );
+            } else {
+                console.log("Error: No student deleted");
+            }
+        } catch (error) {
+            console.error("Error deleting student:", error);
         }
     };
     
@@ -56,6 +76,9 @@ const StudentCollection = () => {
                             <th scope="col" className="px-6 py-3">
                                 Role
                             </th>
+                            <th scope="col" className="px-6 py-3">
+                                Action
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,6 +98,9 @@ const StudentCollection = () => {
 
                                 <td className="px-6 py-4">
                                     <button onClick={() => handleUpdate(student)} className="text-white bg-zinc-800 p-1 rounded">{student.role}</button>
+                                </td>
+                                <td className="px-6 py-4 text-2xl text-red-700">
+                                    <button onClick={()=>handleDelete(student)}><TiDelete/></button>
                                 </td>
                             </tr>
 
