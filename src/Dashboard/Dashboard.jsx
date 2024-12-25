@@ -50,23 +50,14 @@ const Dashboard = () => {
                 </NavLink>
               </li>
 
+              
+
               <li className="rounded-sm">
-                <NavLink to={'/orders'} className="flex items-center p-2 space-x-3 rounded-md">
-                  <span>Orders</span>
+                <NavLink to={'/'} className="flex items-center p-2 space-x-3 rounded-md">
+                  <span>Home</span>
                 </NavLink>
               </li>
 
-              <li className="rounded-sm">
-                <NavLink to={'/wishlist'} className="flex items-center p-2 space-x-3 rounded-md">
-                  <span>Wishlist</span>
-                </NavLink>
-              </li>
-
-              <li className="rounded-sm dark:bg-gray-100 dark:text-gray-900">
-                <NavLink to={'/settings'} className="flex items-center p-2 space-x-3 rounded-md">
-                  <span>Settings</span>
-                </NavLink>
-              </li>
             </ul>
           </div>
         </div>

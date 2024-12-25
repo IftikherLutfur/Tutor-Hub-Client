@@ -12,6 +12,7 @@ import ContactUs from "./Components/ContactUs/ContactUs";
 import Dashboard from "./Dashboard/Dashboard";
 import TutorCollection from "./Dashboard/TutorCollection";
 import StudentCollection from "./Dashboard/StudentCollection";
+import Stats from "./Dashboard/Stats";
 
 
 const router = createBrowserRouter([
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
         {
           path:'studentCollection',
           element:<StudentCollection/>
+        },
+        {
+          path:'stats',
+          element:<Stats/>
         }
       ]
     },

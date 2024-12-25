@@ -46,12 +46,12 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed z-10 w-full h-16 bg-opacity-70 bg-black text-white">
+    <div className="fixed z-10 w-full h-20 bg-opacity-60 bg-white text-black">
       <div className="flex justify-between items-center px-5 py-3">
         {/* Logo */}
         <div>
           <h1 className="text-2xl font-bold">
-            Tutor <span className="text-pink-600">Hub</span>
+           <img className="w-20 " src="https://i.ibb.co.com/1bnG5SM/Background-18.png" alt="" />
           </h1>
         </div>
 
@@ -66,19 +66,24 @@ const Navbar = () => {
         </div>
 
         {/* Links for Desktop */}
-        <div className="hidden md:block">
-          <ul className="flex gap-5 text-white">
-            <li>
+        <div className="hidden font-bold md:block">
+          <ul className="flex gap-5 text-black">
+            <li className="mt-2">
               <NavLink to={"/"}>Home</NavLink>
             </li>
-            <li>
+            <li className="mt-2">
               <NavLink to={"/tutorFinds"}>Finds Tutor</NavLink>
             </li>
-            <li>
+            <li className="mt-2">
               <NavLink to={"/aboutUs"}>About Us</NavLink>
             </li>
-            <li>
+            <li className="mt-2">
               <NavLink to={"/contactUs"}>Contact Us</NavLink>
+            </li>
+            <li className="mt-2">
+              {currentTutor?.role === "admin" || currentStudent?.role === "admin" ? <NavLink to={'Dashboard/stats'}>Dashboard</NavLink> : ""
+              
+              }
             </li>
 
             {user ? 
@@ -90,7 +95,7 @@ const Navbar = () => {
                 >
                   <img
                     className="w-12 h-12 rounded-full"
-                    src={currentTutor?.image ||currentStudent?.image}
+                    src={currentTutor?.image || currentStudent?.image}
                     alt="Profile"
                   />
                   {isOpen && (
