@@ -54,7 +54,7 @@ const TutorRegistration = () => {
                     number: data.number,
                     study: data.study,
                     subject: data.subject,
-                    teachingSubject: [data.teachingSubject],
+                    teachingSubject: data.teachingSubject,
                     salary: data.salary,
                     location: data.location,
                     onlineOffline: data.onlineOffline
@@ -187,16 +187,45 @@ const TutorRegistration = () => {
 
                             {/* Preferred Teaching Subject */}
                             <div className="relative flex items-center mt-6">
-                                <span className="absolute">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </span>
+  <span className="absolute">
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  </span>
 
-                                <input type="text" name="teachingSubject"  {...register("teachingSubject",{
-                                    required:"Type your teaching subject"
-                                })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Preferred Teaching Sub" />
-                            </div>
+  <select
+    name="teachingSubject"
+    {...register("teachingSubject", {
+      required: "Select your teaching subject"
+    })}
+    className="block w-full py-3 bg-white border rounded-lg px-11 text-black"
+  >
+    <option value="" disabled selected>
+      Select a subject
+    </option>
+    <option value="Physics">Physics</option>
+<option value="Chemistry">Chemistry</option>
+<option value="Mathematics">Mathematics</option>
+<option value="Biology">Biology</option>
+<option value="English">English</option>
+<option value="History">History</option>
+<option value="Geography">Geography</option>
+<option value="Economics">Economics</option>
+<option value="Computer Science">Computer Science</option>
+<option value="Environmental Science">Environmental Science</option>
+<option value="Political Science">Political Science</option>
+<option value="Philosophy">Philosophy</option>
+<option value="Psychology">Psychology</option>
+<option value="Sociology">Sociology</option>
+<option value="Accounting">Accounting</option>
+<option value="Business Studies">Business Studies</option>
+<option value="Marketing">Marketing</option>
+<option value="Statistics">Statistics</option>
+<option value="Fine Arts">Fine Arts</option>
+<option value="Music">Music</option>
+  </select>
+</div>
+
 
                             {/* Salary */}
                             <div className="relative flex items-center mt-6">

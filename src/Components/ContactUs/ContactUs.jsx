@@ -8,17 +8,14 @@ const ContactUs = () => {
                 muted
                 loop
             >
-                <source
-                    src="https://videocdn.cdnpk.net/videos/005d40f6-2191-466f-9b36-4659fdf20bbf/horizontal/previews/clear/small.mp4?token=exp=1734944945~hmac=37f5bd3bb87fb8ea5bca0f5c5d0843d04a879b0d6212bf1605538002d7941dfc"
-                    type="video/mp4"
-                />
+                
                 Your browser does not support the video tag.
             </video>
 
             {/* Content */}
             <div className="relative lg:flex justify-between items-center mx-10 gap-10">
                 {/* Left Content */}
-                <div className="flex-1 text-white">
+                <div className="flex-1 text-black">
                     <h1 className="text-4xl font-bold">Contact with us</h1>
                     <p className="text-xl font-semibold mt-2">
                         Talk with our support manager. Let's discuss something cool together.

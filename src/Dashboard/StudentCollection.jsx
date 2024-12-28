@@ -14,13 +14,13 @@ const StudentCollection = () => {
 
     const handleUpdate = async (student) => {
         const updatedData = { role: "admin" }; // Get the updated role
-    
+
         try {
             const res = await axios.patch(
                 `http://localhost:5000/studentUpdate/${student._id}`,
                 updatedData
             );
-    
+
             if (res.data.modifiedCount) {
                 console.log("Successfully updated the role.");
                 // Update the state with the new    role
@@ -36,7 +36,7 @@ const StudentCollection = () => {
             console.error("Error updating student:", error);
         }
     };
-    
+
     const handleDelete = async (student) => {
         console.log("Attempting to delete student with ID:", student._id);
         try {
@@ -54,7 +54,7 @@ const StudentCollection = () => {
             console.error("Error deleting student:", error);
         }
     };
-    
+
 
     return (
         <div>
@@ -82,7 +82,7 @@ const StudentCollection = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {students.map(student =>
+                        {students.filter(student => student.role === "student").map(student =>
 
                             <tr key={student._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -100,7 +100,7 @@ const StudentCollection = () => {
                                     <button onClick={() => handleUpdate(student)} className="text-white bg-zinc-800 p-1 rounded">{student.role}</button>
                                 </td>
                                 <td className="px-6 py-4 text-2xl text-red-700">
-                                    <button onClick={()=>handleDelete(student)}><TiDelete/></button>
+                                    <button onClick={() => handleDelete(student)}><TiDelete /></button>
                                 </td>
                             </tr>
 

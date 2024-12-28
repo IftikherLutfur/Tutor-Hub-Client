@@ -13,6 +13,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import TutorCollection from "./Dashboard/TutorCollection";
 import StudentCollection from "./Dashboard/StudentCollection";
 import Stats from "./Dashboard/Stats";
+import Course from "./Components/Course/Course";
 
 
 const router = createBrowserRouter([
@@ -51,13 +52,17 @@ const router = createBrowserRouter([
           {
             path:'/contactUs',
             element:<ContactUs/>
+          },
+          {
+            path:'/course',
+            element:<Course/>
           }
       ],
       
     },
     {
       path:'Dashboard',
-      element:<Dashboard/>,
+      element:<PrivateRoute>:<Dashboard/></PrivateRoute>,
       children:[
         {
           path:"tutorCollection",
