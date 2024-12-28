@@ -14,6 +14,7 @@ import TutorCollection from "./Dashboard/TutorCollection";
 import StudentCollection from "./Dashboard/StudentCollection";
 import Stats from "./Dashboard/Stats";
 import Course from "./Components/Course/Course";
+import PostCourse from "./Components/Course/PostCourse";
 
 
 const router = createBrowserRouter([
@@ -55,8 +56,11 @@ const router = createBrowserRouter([
           },
           {
             path:'/course',
-            element:<Course/>
-          }
+            element:<PrivateRoute><Course/></PrivateRoute>
+          },
+         { path:"/coursePost",
+          element:<PostCourse/>          
+         }
       ],
       
     },

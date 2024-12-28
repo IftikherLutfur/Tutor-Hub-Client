@@ -81,6 +81,9 @@ const Navbar = () => {
               <NavLink to={"/contactUs"}>Contact Us</NavLink>
             </li>
             <li className="mt-2">
+              <NavLink to={"/course"}>Course</NavLink>
+            </li>
+            <li className="mt-2">
               {currentTutor?.role === "admin" || currentStudent?.role === "admin" ? <NavLink to={'Dashboard/stats'}>Dashboard</NavLink> : ""
               
               }

@@ -18,7 +18,7 @@ const ContactUs = () => {
                 <div className="flex-1 text-black">
                     <h1 className="text-4xl font-bold">Contact with us</h1>
                     <p className="text-xl font-semibold mt-2">
-                        Talk with our support manager. Let's discuss something cool together.
+                        Talk with our support manager. Lets discuss something cool together.
                     </p>
                     <p className="text-xl font-semibold mt-2">supportTutorHub@gmail.com</p>
                     <p className="text-xl font-semibold mt-2">+8801966095405</p>
