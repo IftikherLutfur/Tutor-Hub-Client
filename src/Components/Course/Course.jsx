@@ -29,7 +29,7 @@ const Course = () => {
 
                 <div key={cours._id} className="flex gap-6 items-center mx-5 my-3 border-2">
                     <div>
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH7JTnADAGIlYk0x1VT8ZuUAN6oWTs_Rv7sQ&s" alt="" />
+                        <img src={cours.image} alt="" />
                     </div>
                     <div>
                         <p>Course Name: {cours.courseName}</p>
@@ -37,7 +37,11 @@ const Course = () => {
                         <p>Amount: {cours.amout}</p>
                         <p>Prerequisites: {cours.prerequisites}</p>
                         <p>For Who: {cours.targetAudience}</p>
-                        <button className="underline">Details</button>
+                        <button className="underline">
+                            <NavLink to={`/getCourse/${cours._id}`}>
+                            Details
+                            </NavLink>
+                            </button>
                     </div>
                 </div>
                 ) }

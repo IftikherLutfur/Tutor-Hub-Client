@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import toast from "react-hot-toast";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -9,7 +12,6 @@ const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const PostCourse = () => {
 
 	const [profilePhoto, setProfilePhoto] = useState(null);
-	// const navigate = useNavigate()
 
 	const uploadImageToImgbb = async (imageFile) => {
 		const formData = new FormData();
@@ -28,7 +30,7 @@ const PostCourse = () => {
 	const { user } = useContext(AuthContext)
 	console.log(user.email);
 
-	const { register, handleSubmit } = useForm({
+	const { register, handleSubmit, reset } = useForm({
 		shouldUseNativeValidation: true
 	})
 
@@ -55,7 +57,8 @@ const PostCourse = () => {
 			const res = await axios.post('http://localhost:5000/coursePost', courseInfo)
 			console.log(res.data);
 			if (res.data.insertedId) {
-				// navigate('/getCourse')
+				toast.success("Course upload has successful")
+				reset();
 			}
 			else{
 				console.error("Error")
@@ -69,6 +72,7 @@ const PostCourse = () => {
 
 	return (
 		<div>
+			  <ToastContainer/>
 			<section className="max-w-4xl pt-20 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
 				<h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">Create a course post</h2>
 

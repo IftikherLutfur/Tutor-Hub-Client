@@ -15,6 +15,7 @@ import StudentCollection from "./Dashboard/StudentCollection";
 import Stats from "./Dashboard/Stats";
 import Course from "./Components/Course/Course";
 import PostCourse from "./Components/Course/PostCourse";
+import CourseDetails from "./Components/Course/CourseDetails";
 
 
 const router = createBrowserRouter([
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
           },
          { path:"/coursePost",
           element:<PostCourse/>          
+         },
+         {
+          path:'/getCourse/:id',
+          element:<CourseDetails/>,
+          loader:({params})=>fetch(`http://localhost:5000/getCourse/${params.id}`)          
          }
       ],
       
