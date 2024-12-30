@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const CourseCollection = () => {
   const [course, setCourse] = useState([]);
@@ -81,7 +82,11 @@ const CourseCollection = () => {
                 </th>
                 <td className="px-6 py-4">{student.email}</td>
                 <td className="px-6 py-4">{student.number}</td>
-                <td className="px-6 py-4 text-red-700">Details</td>
+                <td className="px-6 py-4 text-red-700">
+                    <NavLink to={`/getCourse/${student._id}`}>
+                                                Details
+                                                </NavLink>
+                </td>
                 <td className="px-6 py-4">
                   <select
                     value={student.status}

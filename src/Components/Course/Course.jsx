@@ -25,7 +25,7 @@ const Course = () => {
             </div>
             <div className="grid lg:grid-cols-1 md:grid-cols-2 sm:grid-cols-1">
 
-                {course.map(cours=>
+                {course.filter(co=>co.status==="Accepted").map(cours=>
 
                 <div key={cours._id} className="flex gap-6 items-center mx-5 my-3 border-2">
                     <div>

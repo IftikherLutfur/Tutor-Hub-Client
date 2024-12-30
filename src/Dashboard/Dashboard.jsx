@@ -50,7 +50,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li className="rounded-sm">
-                <NavLink to={'studentCollection'} className="flex items-center p-2 space-x-3 rounded-md font-semibold">
+                <NavLink to={'courseCollection'} className="flex items-center p-2 space-x-3 rounded-md font-semibold">
                   <span>Course Collection</span>
                 </NavLink>
               </li>
