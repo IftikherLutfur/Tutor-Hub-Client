@@ -21,7 +21,7 @@ const Course = () => {
                 <NavLink to={"/coursePost"}>
                     <button className="text-2xl font-semibold bg-zinc-800 text-white p-2 rounded-lg uppercase">create a course post</button>
                 </NavLink>
-                {course.length}
+            
             </div>
             <div className="grid lg:grid-cols-1 md:grid-cols-2 sm:grid-cols-1">
 
@@ -29,7 +29,7 @@ const Course = () => {
 
                 <div key={cours._id} className="flex gap-6 items-center mx-5 my-3 border-2">
                     <div>
-                        <img src={cours.image} alt="" />
+                        <img className="w-[600px] h-[300px]" src={cours.image} alt="" />
                     </div>
                     <div>
                         <p>Course Name: {cours.courseName}</p>

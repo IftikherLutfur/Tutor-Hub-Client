@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import toast from "react-hot-toast";
 
@@ -47,6 +46,7 @@ const PostCourse = () => {
 			duration: data.courseDuration,
 			prerequisites: data.prefer,
 			targetAudience: data.targetAudience,
+			status:"pending"
 			
 
 
