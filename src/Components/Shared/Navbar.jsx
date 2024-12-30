@@ -13,7 +13,7 @@ const Navbar = () => {
 
   useEffect(()=>{
     if(user?.email){
-      axios.get("http://localhost:5000/getStudent")
+      axios.get("https://tutor-hub-server.vercel.app/getStudent")
       .then(res=>{
         console.log(res.data);
         
@@ -28,7 +28,7 @@ const Navbar = () => {
     // Fetch tutors and match the current user's email
     if (user?.email) {
       axios
-        .get("http://localhost:5000/getTutor")
+        .get("https://tutor-hub-server.vercel.app/getTutor")
         .then((res) => {
           const matchedTutor = res.data.find(
             (tutor) => tutor?.email === user?.email

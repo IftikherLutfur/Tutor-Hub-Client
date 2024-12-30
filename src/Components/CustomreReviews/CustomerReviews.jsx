@@ -6,7 +6,7 @@ const CustomerReviews = () => {
 	const [review , setReview] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:5000/getTutorReview')
+		axios.get('https://tutor-hub-server.vercel.app/getTutorReview')
 		.then(res=>{
 			setReview(res.data)
 		})

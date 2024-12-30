@@ -54,7 +54,7 @@ const PostCourse = () => {
 
 
 		try {
-			const res = await axios.post('http://localhost:5000/coursePost', courseInfo)
+			const res = await axios.post('https://tutor-hub-server.vercel.app/coursePost', courseInfo)
 			console.log(res.data);
 			if (res.data.insertedId) {
 				toast.success("Course upload has successful")

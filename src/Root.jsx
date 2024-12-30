@@ -66,7 +66,7 @@ const router = createBrowserRouter([
          {
           path:'/getCourse/:id',
           element:<CourseDetails/>,
-          loader:({params})=>fetch(`http://localhost:5000/getCourse/${params.id}`)          
+          loader:({params})=>fetch(`https://tutor-hub-server.vercel.app/getCourse/${params.id}`)          
          }
       ],
       

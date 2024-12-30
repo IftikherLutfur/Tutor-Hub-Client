@@ -70,7 +70,7 @@ const StudentRegistration = () => {
                     location: data.location,
                 }
 
-                axios.post('http://localhost:5000/studentInfo', studentInfo)
+                axios.post('https://tutor-hub-server.vercel.app/studentInfo', studentInfo)
                     .then(res => {
                         console.log(res.data);
                         if (res.data.insertedId) {

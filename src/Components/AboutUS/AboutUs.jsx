@@ -10,7 +10,7 @@ const AboutUs = () => {
     const [ourInfo, setOurInfo] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/aboutUs')
+        axios.get('https://tutor-hub-server.vercel.app/aboutUs')
             .then(res => {
                 setOurInfo(res.data)
                 console.log(res.data);

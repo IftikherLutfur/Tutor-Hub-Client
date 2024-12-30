@@ -6,7 +6,7 @@ const TutorCollection = () => {
 
     const [tutors, setTutor] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:5000/getTutor')
+        axios.get('https://tutor-hub-server.vercel.app/getTutor')
             .then(res => {
                 setTutor(res.data)
             })
@@ -16,7 +16,7 @@ const TutorCollection = () => {
         const updatedData = { role: "admin" };
         console.log(tutor._id);
         try {
-            const res = await axios.patch(`http://localhost:5000/tutorUpdate/${tutor._id}`, updatedData)
+            const res = await axios.patch(`https://tutor-hub-server.vercel.app/tutorUpdate/${tutor._id}`, updatedData)
             if (res.data.modifiedCount) {
                 console.log("Tutor Upadate successfully");
                 setTutor((prevTutors) =>
@@ -34,7 +34,7 @@ const TutorCollection = () => {
 
     const handleDelete = async (tutor) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/tutorDelete/${tutor._id}`);
+            const res = await axios.delete(`https://tutor-hub-server.vercel.app/tutorDelete/${tutor._id}`);
             if (res.data.deletedCount > 0) {
                 console.log("Successfully deleted");
                 setTutor((prevTutor) =>

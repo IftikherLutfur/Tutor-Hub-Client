@@ -13,7 +13,7 @@ const TutorDetails = () => {
     const [tutor, getTutor] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:5000/getTutor")
+        axios.get("https://tutor-hub-server.vercel.app/getTutor")
             .then(res => {
                 console.log(res.data)
                 getTutor(res.data)

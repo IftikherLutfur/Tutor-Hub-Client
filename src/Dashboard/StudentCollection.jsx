@@ -6,7 +6,7 @@ import { TiDelete } from "react-icons/ti";
 const StudentCollection = () => {
     const [students, setStudent] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:5000/getStudent')
+        axios.get('https://tutor-hub-server.vercel.app/getStudent')
             .then(res => {
                 setStudent(res.data)
             })
@@ -17,7 +17,7 @@ const StudentCollection = () => {
 
         try {
             const res = await axios.patch(
-                `http://localhost:5000/studentUpdate/${student._id}`,
+                `https://tutor-hub-server.vercel.app/studentUpdate/${student._id}`,
                 updatedData
             );
 
@@ -40,7 +40,7 @@ const StudentCollection = () => {
     const handleDelete = async (student) => {
         console.log("Attempting to delete student with ID:", student._id);
         try {
-            const res = await axios.delete(`http://localhost:5000/studentDelete/${student._id}`);
+            const res = await axios.delete(`https://tutor-hub-server.vercel.app/studentDelete/${student._id}`);
             if (res.data.deletedCount > 0) {
                 console.log("Deleted successfully");
                 // Update the UI to reflect the deletion

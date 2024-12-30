@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
                 console.log("Google login successful", loggedInInfo);
 
                 const infoOfUser = { email: loggedInInfo.email }
-                axios.post('http://localhost:5000/jwt', infoOfUser)
+                axios.post('https://tutor-hub-server.vercel.app/jwt', infoOfUser)
                     .then(res => {
                         if (res.data.token) {
                             localStorage.setItem('access-token', res.data.token)
@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
             console.log("Current User", currentUser);
             if (currentUser) {
                 const infoOfUser = { email: currentUser?.email }
-                axios.post('http://localhost:5000/jwt', infoOfUser)
+                axios.post('https://tutor-hub-server.vercel.app/jwt', infoOfUser)
                     .then(res => {
                         if (res.data.token) {
                             localStorage.setItem('access-token', res.data.token)

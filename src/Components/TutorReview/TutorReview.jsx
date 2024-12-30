@@ -21,7 +21,7 @@ const TutorReview = () => {
       message: message
     }
 
-    axios.post('http://localhost:5000/tutorReview', review)
+    axios.post('https://tutor-hub-server.vercel.app/tutorReview', review)
       .then(res => {
         console.log(res.data);
         if (res.data.insertdId) {

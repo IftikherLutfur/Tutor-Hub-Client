@@ -9,7 +9,7 @@ const CourseCollection = () => {
   // Fetch the courses from the database
   useEffect(() => {
     axios
-      .get("http://localhost:5000/getCourse")
+      .get("https://tutor-hub-server.vercel.app/getCourse")
       .then((res) => {
         setCourse(res.data);
       })
@@ -21,7 +21,7 @@ const CourseCollection = () => {
   // Handle the accept operation
   const handleAccept = (student) => {
     axios
-      .patch(`http://localhost:5000/updateCourse/${student._id}`, { status: "Accepted" })
+      .patch(`https://tutor-hub-server.vercel.app/updateCourse/${student._id}`, { status: "Accepted" })
       .then((res) => {
         console.log("Course status updated:", res.data);
 
@@ -40,7 +40,7 @@ const CourseCollection = () => {
   // Handle the delete operation
   const handleDelete = (student) => {
     axios
-      .delete(`http://localhost:5000/deleteCourse/${student._id}`)
+      .delete(`https://tutor-hub-server.vercel.app/deleteCourse/${student._id}`)
       .then((res) => {
         console.log("Course deleted:", res.data);
 

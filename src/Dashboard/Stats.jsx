@@ -7,7 +7,7 @@ const Stats = () => {
     const [course, setCourse] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/getStudent')
+        axios.get('https://tutor-hub-server.vercel.app/getStudent')
             .then(res => {
                 setStudent(res.data)
             })
@@ -16,7 +16,7 @@ const Stats = () => {
             })
     }, [])
     useEffect(() => {
-        axios.get('http://localhost:5000/getTutor')
+        axios.get('https://tutor-hub-server.vercel.app/getTutor')
             .then(res => {
                 setTutor(res.data)
             })
@@ -26,7 +26,7 @@ const Stats = () => {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/getCourse')
+        axios.get('https://tutor-hub-server.vercel.app/getCourse')
             .then(res=>{
                 setCourse(res.data);
             })

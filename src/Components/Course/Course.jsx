@@ -8,7 +8,7 @@ const Course = () => {
     const [course, setCourse] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/getCourse')
+        axios.get('https://tutor-hub-server.vercel.app/getCourse')
             .then(res => {
                 setCourse(res.data)
             })

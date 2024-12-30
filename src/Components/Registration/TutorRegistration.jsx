@@ -61,7 +61,7 @@ const TutorRegistration = () => {
                 }
 
 
-                axios.post('http://localhost:5000/tutorInfo', tutorInfo)
+                axios.post('https://tutor-hub-server.vercel.app/tutorInfo', tutorInfo)
                     .then(response => {
                         console.log(response.data);
                         if (response.data.insertedId) {
