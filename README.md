@@ -55,7 +55,7 @@ Solution: Tutor Hub offers a centralized platform that organizes tutors, student
 Problem: Students may be uncertain about which courses are available, who is teaching them, and how to enroll.
 Solution: The platform provides a clear overview of available courses, their details, and the tutors offering them, allowing students to make confident decisions about course enrollment.
 
-# ummary of Problems Solved:
+# Summary of Problems Solved:
 ## 1.Finding the right tutor.
 ## 2.Easy communication between tutors and students.
 ## 3.Building trust and credibility.
