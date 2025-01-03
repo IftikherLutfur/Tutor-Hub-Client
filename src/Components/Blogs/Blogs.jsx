@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 
 const Blogs = () => {
@@ -39,7 +40,7 @@ const Blogs = () => {
                                     href="#"
                                     className="text-xl font-semibold text-gray-800 hover:underline dark:text-white"
                                 >
-                                    {blog.name}
+                                    <NavLink to={`/getBlogs/${blog._id}`} >{blog.name}</NavLink>
                                 </a>
 
                                 <span className="text-sm text-gray-500 dark:text-gray-300">
