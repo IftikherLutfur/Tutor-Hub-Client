@@ -18,6 +18,7 @@ import PostCourse from "./Components/Course/PostCourse";
 import CourseDetails from "./Components/Course/CourseDetails";
 import CourseCollection from "./Dashboard/CourseCollection";
 import BlogCollection from "./Dashboard/BlogCollection/BlogCollection";
+import BlogDetails from "./Components/Blogs/BlogDetails";
 
 
 const router = createBrowserRouter([
@@ -68,6 +69,11 @@ const router = createBrowserRouter([
           path:'/getCourse/:id',
           element:<CourseDetails/>,
           loader:({params})=>fetch(`https://tutor-hub-server.vercel.app/getCourse/${params.id}`)          
+         },
+         {
+          path:'/getBlogs/:id',
+          element:<BlogDetails/>,
+          loader:({params})=>fetch(`http://localhost:5000/getBlogs/${params.id}`)
          }
       ],
       

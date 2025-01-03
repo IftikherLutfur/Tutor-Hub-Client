@@ -1,8 +1,12 @@
+import { useLoaderData } from "react-router-dom";
 
 const BlogDetails = () => {
+
+    const loader = useLoaderData()
     return (
         <div>
-hello            
+hello        
+{loader.name}    
         </div>
     );
 };
