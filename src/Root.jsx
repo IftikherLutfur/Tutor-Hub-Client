@@ -17,6 +17,7 @@ import Course from "./Components/Course/Course";
 import PostCourse from "./Components/Course/PostCourse";
 import CourseDetails from "./Components/Course/CourseDetails";
 import CourseCollection from "./Dashboard/CourseCollection";
+import BlogCollection from "./Dashboard/BlogCollection/BlogCollection";
 
 
 const router = createBrowserRouter([
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
         {
           path:'stats',
           element:<Stats/>
+        },
+        {
+          path:'blogCollection',
+          element:<BlogCollection/>
         }
       ]
     },

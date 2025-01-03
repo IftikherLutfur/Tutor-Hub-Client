@@ -33,10 +33,12 @@ const Dashboard = () => {
                   <span>Course Collection</span>
                 </NavLink>
               </li>
+              <li className="rounded-sm">
+                <NavLink to={'blogCollection'} className="flex items-center p-2 space-x-3 rounded-md font-semibold">
+                  <span>Blog Collection</span>
+                </NavLink>
+              </li>
               
-
-              
-
               <li className="rounded-sm">
                 <NavLink to={'/'} className="flex items-center p-2 space-x-3 rounded-md font-semibold">
                   <span>Home</span>
