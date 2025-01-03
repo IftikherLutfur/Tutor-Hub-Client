@@ -11,16 +11,14 @@ const Navbar = () => {
   const [currentTutor, setCurrentTutor] = useState(null); // Current user's profile info
   const [currentStudent, setCurrentStudent] = useState(null)
 
-  useEffect(()=>{
-    if(user?.email){
+  useEffect(() => {
+    if (user?.email) {
       axios.get("https://tutor-hub-server.vercel.app/getStudent")
-      .then(res=>{
-        console.log(res.data);
-        
-        const matchedStudent = res.data.find((student)=>student?.email===user?.email);
-        setCurrentStudent(matchedStudent)
+        .then(res => {
+          const matchedStudent = res.data.find((student) => student?.email === user?.email);
+          setCurrentStudent(matchedStudent)
 
-      })
+        })
     }
   })
 
@@ -43,6 +41,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logOut();
+
   };
 
   return (
@@ -51,7 +50,7 @@ const Navbar = () => {
         {/* Logo */}
         <div>
           <h1 className="text-2xl font-bold">
-           <img className="w-20 " src="https://i.ibb.co.com/1bnG5SM/Background-18.png" alt="" />
+            <img className="w-20 " src="https://i.ibb.co.com/1bnG5SM/Background-18.png" alt="" />
           </h1>
         </div>
 
@@ -84,43 +83,41 @@ const Navbar = () => {
               <NavLink to={"/course"}>Course</NavLink>
             </li>
             <li className="mt-2">
-              {currentTutor?.role === "admin" || currentStudent?.role === "admin" ? <NavLink to={'Dashboard/stats'}>Dashboard</NavLink> : ""
-              
-              }
+              {currentTutor?.role === "admin" || currentStudent?.role === "admin" ? <NavLink to={'Dashboard/stats'}>Dashboard</NavLink> : "" }
             </li>
 
-            {user ? 
-            (
-              <li>
-                <div
-                  className="relative cursor-pointer"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <img
-                    className="w-12 h-12 rounded-full"
-                    src={currentTutor?.image || currentStudent?.image}
-                    alt="Profile"
-                  />
-                  {isOpen && (
-                    <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20">
-                      <div className="p-2">
-                        <p className="text-black">{user.displayName}</p>
-                        <button
-                          onClick={handleLogout}
-                          className="mt-2 block w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-gray-100"
-                        >
-                          Logout
-                        </button>
+            {user ?
+              (
+                <li>
+                  <div
+                    className="relative cursor-pointer"
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
+                    <img
+                      className="w-12 h-12 rounded-full"
+                      src={currentTutor?.image || currentStudent?.image}
+                      alt="Profile"
+                    />
+                    {isOpen && (
+                      <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20">
+                        <div className="p-2">
+                          <p className="text-black">{user.displayName}</p>
+                          <button
+                            onClick={handleLogout}
+                            className="mt-2 block w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-gray-100"
+                          >
+                            Logout
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              </li>
-            ) : (
-              <li>
-                <NavLink to={"/login"}>Login</NavLink>
-              </li>
-            )}
+                    )}
+                  </div>
+                </li>
+              ) : (
+                <li>
+                  <NavLink to={"/login"}>Login</NavLink>
+                </li>
+              )}
           </ul>
         </div>
       </div>

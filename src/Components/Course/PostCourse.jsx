@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { ToastContainer } from "react-toastify";
-import toast from "react-hot-toast";
+import { Bounce, ToastContainer } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -57,7 +57,7 @@ const PostCourse = () => {
 			const res = await axios.post('https://tutor-hub-server.vercel.app/coursePost', courseInfo)
 			console.log(res.data);
 			if (res.data.insertedId) {
-				toast.success("Course upload has successful")
+				toast.success('Successfully posted!')
 				reset();
 			}
 			else{
@@ -72,7 +72,7 @@ const PostCourse = () => {
 
 	return (
 		<div>
-			  <ToastContainer/>
+			 
 			<section className="max-w-4xl pt-20 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
 				<h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">Create a course post</h2>
 
@@ -152,6 +152,10 @@ const PostCourse = () => {
 					</div>
 					<div className="flex justify-end mt-6">
 						<button type="submit" className="px-8 py-2.5 leading-5 w-full text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Post</button>
+						<Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
 					</div>
 
 

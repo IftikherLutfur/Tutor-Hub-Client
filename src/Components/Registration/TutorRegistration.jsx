@@ -28,18 +28,27 @@ const TutorRegistration = () => {
         }
     };
 
-    
-        const { signUp, update } = useContext(AuthContext)
-        const navigate = useNavigate()
-        const [show, setShow] = useState(false)
+
+    const { signUp, update } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [password, setPassword] = useState(false);
+
+
+    const togglePassword = () => {
+        setPassword(!password);
+    };
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
 
     const { register, handleSubmit } = useForm({
         shouldUseNativeValidation: true
     })
 
-    const onSubmit = async (data) =>{
+    const onSubmit = async (data) => {
         console.log(data);
-        
+
         const profilePhotoUrl = await uploadImageToImgbb(profilePhoto);
 
         signUp(data.email, data.password)
@@ -66,18 +75,17 @@ const TutorRegistration = () => {
                         console.log(response.data);
                         if (response.data.insertedId) {
                             toast.success("Tutor account registration successful");
-                            navigate('/')
-
                         }
 
                     })
+                navigate('/')
 
             })
             .catch((error) => {
                 console.error("Error signing in:", error.message);
             });
 
-        }
+    }
 
     return (
         <div
@@ -92,7 +100,7 @@ const TutorRegistration = () => {
         >
             <section className=" m-5 ">
 
-                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md pt-6">
+                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md mt-6">
                     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
 
 
@@ -113,8 +121,8 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="name" {...register ("name", {
-                                    required:"Type your name"
+                                <input type="text" name="name" {...register("name", {
+                                    required: "Type your name"
                                 })} className="block w-full py-3 text-black bg-white  rounded-lg px-11 " placeholder="Full Name" required />
                             </div>
 
@@ -127,9 +135,9 @@ const TutorRegistration = () => {
 
                                     <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-                                    <input id="dropzone-file" type="file" name="image" {...register ("image", {
-                                    required:"Upload your image"
-                                })}
+                                    <input id="dropzone-file" type="file" name="image" {...register("image", {
+                                        required: "Upload your image"
+                                    })}
                                         onChange={(e) => setProfilePhoto(e.target.files[0])}
                                         className="hidden" />
                                 </label>
@@ -143,8 +151,8 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="email" name="email" {...register ("email", {
-                                    required:"Type your email"
+                                <input type="email" name="email" {...register("email", {
+                                    required: "Type your email"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Email address" />
                             </div>
                             {/* Phone Number Field */}
@@ -155,8 +163,8 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="number" name="number" {...register ("number", {
-                                    required:"Type your number"
+                                <input type="number" name="number" {...register("number", {
+                                    required: "Type your number"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Number (WhatsApp)" />
                             </div>
 
@@ -168,8 +176,8 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="study"  {...register("study",{
-                                    required:"Type your university name"
+                                <input type="text" name="study"  {...register("study", {
+                                    required: "Type your university name"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your University/Collage" />
                             </div>
                             {/* Subject */}
@@ -180,51 +188,51 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="subject" {...register("subject",{
-                                    required:"Type your department"
+                                <input type="text" name="subject" {...register("subject", {
+                                    required: "Type your department"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Subject/Department" />
                             </div>
 
                             {/* Preferred Teaching Subject */}
                             <div className="relative flex items-center mt-6">
-  <span className="absolute">
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  </span>
+                                <span className="absolute">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
 
-  <select
-    name="teachingSubject"
-    {...register("teachingSubject", {
-      required: "Select your teaching subject"
-    })}
-    className="block w-full py-3 bg-white border rounded-lg px-11 text-black"
-  >
-    <option value="" disabled selected>
-      Select a subject
-    </option>
-    <option value="Physics">Physics</option>
-<option value="Chemistry">Chemistry</option>
-<option value="Mathematics">Mathematics</option>
-<option value="Biology">Biology</option>
-<option value="English">English</option>
-<option value="History">History</option>
-<option value="Geography">Geography</option>
-<option value="Economics">Economics</option>
-<option value="Computer Science">Computer Science</option>
-<option value="Environmental Science">Environmental Science</option>
-<option value="Political Science">Political Science</option>
-<option value="Philosophy">Philosophy</option>
-<option value="Psychology">Psychology</option>
-<option value="Sociology">Sociology</option>
-<option value="Accounting">Accounting</option>
-<option value="Business Studies">Business Studies</option>
-<option value="Marketing">Marketing</option>
-<option value="Statistics">Statistics</option>
-<option value="Fine Arts">Fine Arts</option>
-<option value="Music">Music</option>
-  </select>
-</div>
+                                <select
+                                    name="teachingSubject"
+                                    {...register("teachingSubject", {
+                                        required: "Select your teaching subject"
+                                    })}
+                                    className="block w-full py-3 bg-white border rounded-lg px-11 text-black"
+                                >
+                                    <option value="" disabled selected>
+                                        Select a subject
+                                    </option>
+                                    <option value="Physics">Physics</option>
+                                    <option value="Chemistry">Chemistry</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Biology">Biology</option>
+                                    <option value="English">English</option>
+                                    <option value="History">History</option>
+                                    <option value="Geography">Geography</option>
+                                    <option value="Economics">Economics</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Environmental Science">Environmental Science</option>
+                                    <option value="Political Science">Political Science</option>
+                                    <option value="Philosophy">Philosophy</option>
+                                    <option value="Psychology">Psychology</option>
+                                    <option value="Sociology">Sociology</option>
+                                    <option value="Accounting">Accounting</option>
+                                    <option value="Business Studies">Business Studies</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Statistics">Statistics</option>
+                                    <option value="Fine Arts">Fine Arts</option>
+                                    <option value="Music">Music</option>
+                                </select>
+                            </div>
 
 
                             {/* Salary */}
@@ -235,8 +243,8 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="salary"  {...register("salary",{
-                                    required:"Type your expectation salary"
+                                <input type="text" name="salary"  {...register("salary", {
+                                    required: "Type your expectation salary"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Expected Salary(Monthly)" />
                             </div>
 
@@ -248,8 +256,8 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="location"  {...register("location",{
-                                    required:"Type your location"
+                                <input type="text" name="location"  {...register("location", {
+                                    required: "Type your location"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your Location ?" />
                             </div>
 
@@ -261,8 +269,8 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="onlineOffline"  {...register("onlineOffline",{
-                                    required:"Type online or offline?"
+                                <input type="text" name="onlineOffline"  {...register("onlineOffline", {
+                                    required: "Type online or offline?"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Online/Offline" />
                             </div>
 
@@ -275,10 +283,16 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type={!show ? "password" : "text"} name="password"  {...register("password",{
-                                    required:"Type your password"
+                                <input type={!password ? "password" : "text"} name="password"  {...register("password", {
+                                    required: "Type your password"
                                 })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Password" />
-                                <button onClick={() => setShow(!show)} className="absolute ml-[235px] text-black">eye</ button>
+                                <button
+                                    type="button"
+                                    onClick={togglePassword}
+                                    className="absolute right-3 text-2xl top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                >
+                                    {password ? "🙊" : "🙈"}
+                                </button>
                             </div>
 
                             {/* Confirm Password */}
@@ -289,9 +303,16 @@ const TutorRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="password" name="conpassword"  {...register("compassword",{
-                                    required:"Type your compassword"
+                                <input type={!passwordVisible ? "password" : "text"} name="conpassword"  {...register("compassword", {
+                                    required: "Type your compassword"
                                 })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Confirm Password" />
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility}
+                                    className="absolute right-3 text-2xl top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                >
+                                    {passwordVisible ? "🙊" : "🙈"}
+                                </button>
                             </div>
 
 
@@ -303,7 +324,10 @@ const TutorRegistration = () => {
                             <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1D1D1D]">
                                 Sign Up
                             </button>
-                            <Toaster />
+                            <Toaster
+                                position="top-left"
+                                reverseOrder={false}
+                            />
                             {/* If you have an account then go to the login page */}
                             <div className="mt-6 text-center ">
                                 <a href='/login' className="text-sm text-white bg-[#1D1D1D] p-2 rounded-lg">

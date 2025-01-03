@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 // import { useForm } from "react-hook-form";
-import {toast, Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,14 +12,23 @@ const image_hosting = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const StudentRegistration = () => {
 
     const { signUp, update } = useContext(AuthContext)
-    const [show, setShow] = useState(false)
     const [profilePhoto, setProfilePhoto] = useState(null);
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [password, setPassword] = useState(false);
+
+    
+        const togglePassword = () => {
+            setPassword(!password);
+        };
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
     const navigate = useNavigate()
 
     const uploadImageToImgbb = async (imageFile) => {
         const formData = new FormData();
         formData.append("image", imageFile);
-    
+
         try {
             const response = await axios.post(image_hosting, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
@@ -31,31 +40,31 @@ const StudentRegistration = () => {
         }
     };
 
-    const {register, handleSubmit} =useForm({
+    const { register, handleSubmit } = useForm({
         shouldUseNativeValidation: true,
     })
-    const onSubmit = async (data) =>{
+    const onSubmit = async (data) => {
         const formData = new FormData();
-  formData.append("image", data.image[0]);
+        formData.append("image", data.image[0]);
 
-  try {
-    const response = await fetch(image_hosting, {
-      method: "POST",
-      body: formData,
-    });
-    const result = await response.json();
-    const imageUrl = result.data.display_url;
+        try {
+            const response = await fetch(image_hosting, {
+                method: "POST",
+                body: formData,
+            });
+            const result = await response.json();
+            const imageUrl = result.data.display_url;
 
-    console.log(imageUrl); // Use the uploaded image URL as needed
-  } catch (error) {
-    console.error("Image upload failed:", error);
-  }
-   console.log(data);
-   
+            console.log(imageUrl); // Use the uploaded image URL as needed
+        } catch (error) {
+            console.error("Image upload failed:", error);
+        }
+        console.log(data);
+
 
         const profilePhotoUrl = await uploadImageToImgbb(profilePhoto);
 
-        signUp(data.email, data.password )
+        signUp(data.email, data.password)
             .then((res) => {
                 update(data.name, data.image)
                 console.log(res.user)
@@ -75,17 +84,15 @@ const StudentRegistration = () => {
                         console.log(res.data);
                         if (res.data.insertedId) {
                             toast.success("Student account successfully registered")
-                            navigate('/')
-
                         }
-
                     })
+                navigate('/')
 
             })
 
 
-        }
-    
+    }
+
 
 
     return (
@@ -101,7 +108,7 @@ const StudentRegistration = () => {
         >
             <section className="mt-5 ">
 
-                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md  pt-6">
+                <div className="w-full max-w-4xl relative z-10 p-6 m-auto text-black rounded-lg shadow-md  mt-6">
                     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
 
 
@@ -122,8 +129,8 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="name" {...register("name",{
-                                    required:"Please enter the name"
+                                <input type="text" name="name" {...register("name", {
+                                    required: "Please enter the name"
                                 })} className="block w-full py-3 text-black bg-white  rounded-lg px-11 " placeholder="Full Name" required />
                             </div>
 
@@ -136,9 +143,9 @@ const StudentRegistration = () => {
 
                                     <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-                                    
-                                    <input id="dropzone-file" type="file" name="image" {...register("image",{
-                                        required:"Upload a your image"
+
+                                    <input id="dropzone-file" type="file" name="image" {...register("image", {
+                                        required: "Upload a your image"
                                     })}
                                         onChange={(e) => setProfilePhoto(e.target.files[0])}
                                         className="hidden" />
@@ -153,8 +160,8 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="email" name="email" {...register("email",{
-                                    required:"Type your email"
+                                <input type="email" name="email" {...register("email", {
+                                    required: "Type your email"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Email address" />
                             </div>
                             {/* Phone Number Field */}
@@ -165,8 +172,8 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="number" name="number" {...register("number",{
-                                    required:"Type your number"
+                                <input type="number" name="number" {...register("number", {
+                                    required: "Type your number"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Number (WhatsApp)" />
                             </div>
 
@@ -178,8 +185,8 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="study" {...register("study",{
-                                    required:"Type your university name"
+                                <input type="text" name="study" {...register("study", {
+                                    required: "Type your university name"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your University/Collage" />
                             </div>
                             {/* Subject */}
@@ -190,8 +197,8 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="subject" {...register("subject",{
-                                    required:"Type your department"
+                                <input type="text" name="subject" {...register("subject", {
+                                    required: "Type your department"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Subject/Department" />
                             </div>
 
@@ -207,8 +214,8 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" name="location" {...register("location",{
-                                    required:"Type your location"
+                                <input type="text" name="location" {...register("location", {
+                                    required: "Type your location"
                                 })} className="block w-full py-3  bg-white border rounded-lg px-11 text-black" required placeholder="Your Location ?" />
                             </div>
 
@@ -223,10 +230,17 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type={!show ? "password" : "text"} name="password" {...register("password",{
-                                    required:"Type your password"
+                                <input type={password ? "text" : "password"} name="password" {...register("password", {
+                                    required: "Type your password"
                                 })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Password" />
-                                <button onClick={() => setShow(!show)} className="absolute ml-[235px] text-black">eye</ button>
+                                <button
+                                    type="button"
+                                    onClick={togglePassword}
+                                    className="absolute right-3 text-2xl top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                >
+                                    {password ? "🙊" : "🙈"}
+                                </button>
+                               
                             </div>
 
 
@@ -238,9 +252,17 @@ const StudentRegistration = () => {
                                     </svg>
                                 </span>
 
-                                <input type="password" name="conpassword" {...register("compassword",{
-                                    required:"confirm your password"
+                                <input   type={passwordVisible ? "text" : "password"} name="conpassword" {...register("compassword", {
+                                    required: "confirm your password"
                                 })} className="block w-full px-10 py-3 text-black bg-white border rounded-lg " required placeholder="Confirm Password" />
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility}
+                                    className="absolute right-3 text-2xl top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                >
+                                    {passwordVisible ? "🙊" : "🙈"}
+                                </button>
+                                {/* <button onClick={() => setShowPass(!showPass)} className="absolute ml-[235px] text-black">{showPass ? "" : ""}</ button> */}
                             </div>
 
                             <div className="relative flex items-center mt-4 text-white">
@@ -255,7 +277,10 @@ const StudentRegistration = () => {
                             <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1D1D1D]">
                                 Sign Up
                             </button>
-                            <Toaster />
+                            <Toaster
+                                position="top-center"
+                                reverseOrder={false}
+                            />
                             {/* If you have an account then go to the login page */}
                             <div className="mt-6 text-center ">
                                 <a href='/login' className="text-sm text-white hover:underline bg-[#1D1D1D] p-2 rounded-lg">
