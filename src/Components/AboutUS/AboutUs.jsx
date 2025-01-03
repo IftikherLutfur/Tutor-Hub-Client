@@ -27,7 +27,7 @@ const AboutUs = () => {
                 This is our team, tirelessly working to ensure your service. We are dedicated and passionate about our work, which is why you receive such excellent services. </p>
 
             <div className="flex justify-center gap-20 my-5">
-                {ourInfo.slice(2, 4).map(our => <div key={our._id} className="border-2 text-center px-5 py-4 bg-[#EEECFB] rounded-lg">
+                {ourInfo.slice(3,4).map(our => <div key={our._id} className="border-2 text-center px-5 py-4 bg-[#EEECFB] rounded-lg">
                     <img src={our.Image} className="h-40 w-40 rounded-full" alt="" />
                     <h1 className="font-bold">{our.Name}</h1>
                     <p className="font-semibold">{our.Role}</p>
@@ -39,7 +39,7 @@ const AboutUs = () => {
             </div>
 
             <div className="lg:flex justify-center gap-20 my-5">
-                {ourInfo.slice(0, 2).map(our => <div key={our._id} className="border-2 text-center px-4 py-4 bg-[#EEECFB] rounded-lg">
+                {ourInfo.slice(0, 3).map(our => <div key={our._id} className="border-2 text-center px-4 py-4 bg-[#EEECFB] rounded-lg">
                     <img src={our.Image} className="h-40 w-40 rounded-full" alt="" />
                     <h1 className="font-bold">{our.Name}</h1>
                     <p className="font-semibold">{our.Role}</p>

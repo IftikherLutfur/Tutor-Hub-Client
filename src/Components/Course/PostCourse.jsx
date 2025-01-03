@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { Bounce, ToastContainer } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -41,13 +40,12 @@ const PostCourse = () => {
 			courseName: data.courseName,
 			image: profilePhotoUrl,
 			email: data.email,
-			number:data.number,
+			number: data.number,
 			description: data.description,
 			duration: data.courseDuration,
 			prerequisites: data.prefer,
 			targetAudience: data.targetAudience,
-			status:"pending"
-			
+			status: "pending"
 
 
 		}
@@ -60,7 +58,7 @@ const PostCourse = () => {
 				toast.success('Successfully posted!')
 				reset();
 			}
-			else{
+			else {
 				console.error("Error")
 			}
 		} catch (error) {
@@ -72,7 +70,7 @@ const PostCourse = () => {
 
 	return (
 		<div>
-			 
+
 			<section className="max-w-4xl pt-20 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
 				<h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">Create a course post</h2>
 
@@ -153,9 +151,9 @@ const PostCourse = () => {
 					<div className="flex justify-end mt-6">
 						<button type="submit" className="px-8 py-2.5 leading-5 w-full text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Post</button>
 						<Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+							position="top-center"
+							reverseOrder={false}
+						/>
 					</div>
 
 

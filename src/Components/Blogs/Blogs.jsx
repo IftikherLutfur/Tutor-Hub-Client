@@ -9,7 +9,7 @@ const Blogs = () => {
     const [showAll, setShowAll] = useState(false);
 
     useEffect(()=>{
-     axios.get('http://localhost:5000/getBlogs')
+     axios.get('https://tutor-hub-server.vercel.app/getBlogs')
      .then(res=>{
         setBlogs(res.data)
      })
@@ -44,7 +44,7 @@ const Blogs = () => {
                                 </a>
 
                                 <span className="text-sm text-gray-500 dark:text-gray-300">
-                                    On: {blog.publishedDate}
+                                    On: {blog.publishedDate} | {blog.time}
                                 </span>
                             </div>
                         </div>

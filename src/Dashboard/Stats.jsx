@@ -46,7 +46,7 @@ const Stats = () => {
   }, []);
 
   useEffect(()=>{
-     axios.get('http://localhost:5000/getBlogs')
+     axios.get('https://tutor-hub-server.vercel.app/getBlogs')
          .then(res=>{
             setBlogs(res.data)
          })
