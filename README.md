@@ -65,6 +65,9 @@ Solution: The platform provides a clear overview of available courses, their det
 ## 7.Providing a structured platform for learning.
 ## 8.Clear course enrollment process.
 
+# To see the admin dashboard
+## Login:  email: admin@dashboard.com || password: AdminDashboard6609
+
 
 
 
